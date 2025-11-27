@@ -1,439 +1,332 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalėdų eglutės įžiebimas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalėdų eglutės įžiebimas – Moderni versija</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: 'Nunito', sans-serif; /* Modernesnis pagrindinis šriftas */
-            background: radial-gradient(circle at center, #1a4d1a 0%, #0d2d0d 100%);
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(140deg, #0b1f0b 0%, #124d12 50%, #0b1f0b 100%);
             overflow-x: hidden;
-        }
-        
-        /* Pagrindinio konteinerio atsiradimo animacija */
-        @keyframes entrance {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background: linear-gradient(180deg, #1a5c1a 0%, #0d3d0d 100%);
-            border-radius: 25px;
-            overflow: hidden;
-            /* Vietoj griežto rėmelio - šventiškas švytėjimas */
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(196, 30, 58, 0.4);
-            position: relative;
-            animation: entrance 1.2s ease-out forwards;
-        }
-        
-        .snow {
-            position: fixed; /* Fixed kad snigtų per visą ekraną */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        .snowflake {
-            position: absolute;
-            top: -20px;
-            color: white;
-            font-size: 1em;
-            opacity: 0.8;
-            animation: fall linear infinite;
-            text-shadow: 0 0 5px rgba(255,255,255,0.8);
-        }
-        
-        @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #8f142a 0%, #0f4d0f 100%);
-            padding: 50px 40px 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 3px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .tree {
-            font-size: 110px;
-            animation: sway 3.5s ease-in-out infinite;
-            display: inline-block;
-            /* Realesnis eglutės švytėjimas */
-            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.6));
-            position: relative;
-            z-index: 2;
-        }
-        
-        @keyframes sway {
-            0%, 100% { transform: rotate(-2.5deg); }
-            50% { transform: rotate(2.5deg); }
-        }
-        
-        .star {
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 45px;
-            z-index: 3;
-            animation: twinkle 2s ease-in-out infinite;
-            color: #ffd700;
-            text-shadow: 0 0 20px #ffd700;
-        }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; transform: translateX(-50%) scale(1) rotate(0deg); }
-            50% { opacity: 0.7; transform: translateX(-50%) scale(1.2) rotate(10deg); }
-        }
-        
-        .lights {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        
-        /* Patobulintos lemputės su švytėjimu */
-        .light {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: glow 1.5s infinite alternate;
-        }
-        
-        @keyframes glow {
-            from {
-                box-shadow: 0 0 5px currentColor, 0 0 10px currentColor inset;
-                opacity: 0.4;
-            }
-            to {
-                box-shadow: 0 0 20px currentColor, 0 0 15px currentColor inset;
-                opacity: 1;
-            }
-        }
-        
-        .light:nth-child(1) { top: 25%; left: 25%; background: #ff3333; color: #ff3333; animation-delay: 0s; }
-        .light:nth-child(2) { top: 35%; left: 70%; background: #ffd700; color: #ffd700; animation-delay: 0.4s; }
-        .light:nth-child(3) { top: 55%; left: 35%; background: #ff3333; color: #ff3333; animation-delay: 0.8s; }
-        .light:nth-child(4) { top: 65%; left: 75%; background: #33cc33; color: #33cc33; animation-delay: 1.2s; }
-        .light:nth-child(5) { top: 75%; left: 50%; background: #ffd700; color: #ffd700; animation-delay: 0.6s; }
-        
-        .content {
-            padding: 50px 40px;
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        h1 {
-            font-family: 'Mountains of Christmas', cursive; /* Šventinis šriftas antraštei */
-            color: #ffd700;
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
-            letter-spacing: 1px;
-        }
-        
-        .subtitle {
-            font-size: 1.3em;
-            color: #ffebcd;
-            margin-bottom: 35px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Pagražinta detalių sekcija su stiklo efektu */
-        .details {
-            background: rgba(20, 60, 20, 0.6);
-            padding: 35px;
-            border-radius: 20px;
-            margin: 35px 0;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .detail-item {
-            display: flex;
-            align-items: center;
-            margin: 18px 0;
-            font-size: 1.1em;
-        }
-        
-        .detail-item span:first-child {
-            font-size: 1.8em;
-            margin-right: 20px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-        
-        .message {
-            font-size: 1.15em;
-            line-height: 1.8;
-            margin: 30px 0;
-            color: #f0f0f0;
-        }
-        
-        .cta {
-            text-align: center;
-            margin-top: 45px;
-        }
-        
-        /* Mygtukas su blizgesio animacija */
-        .button {
-            display: inline-block;
-            background: linear-gradient(135deg, #c41e3a 0%, #136e13 100%);
-            color: white;
-            padding: 20px 50px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.5), inset 0 2px 2px rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            border: 2px solid #ffd700;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Blizgesio efektas */
-        .button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-            opacity: 0;
-        }
-        
-        .button:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.7);
-            background: linear-gradient(135deg, #d62240 0%, #168516 100%);
-        }
-        
-        .button:hover::after {
-            left: 100%;
-            opacity: 1;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 35px;
-            background: rgba(0, 0, 0, 0.4);
-            color: #b8b8b8;
-            font-size: 0.95em;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .ornament {
-            display: inline-block;
-            animation: swing 2.5s ease-in-out infinite;
-            transform-origin: top center;
-        }
-        
-        /* Atnaujinta šunų sekcija - be pavadinimų, gražesni rėmeliai */
-        .dogs {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 35px 0 25px;
-            flex-wrap: wrap;
-        }
-        
-        .dog {
-            text-align: center;
-            animation: bounce 2.5s ease-in-out infinite;
-            position: relative;
-        }
-        
-        .dog:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-        
-        /* Šunų emoji dekoratyviniuose rėmeliuose */
-        .dog-emoji-container {
-            font-size: 65px;
-            display: inline-block;
-            margin-bottom: 10px;
-            /* Auksinis švytintis rėmelis */
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 70%);
-            border-radius: 50%;
-            padding: 15px;
-            border: 3px solid rgba(255, 215, 0, 0.4);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2), inset 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
+            min-height: 100vh;
+            display:flex;
+            align-items:flex-start;
+            justify-content:center;
+            padding:20px 15px;
         }
 
-        /* Sąrašo stilius programai */
-        .message ul {
-            list-style: none;
-            padding-left: 10px;
+        /* Container – modernus glassmorphism + 3D shadow */
+        .container {
+            width:100%;
+            max-width:600px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(18px) saturate(160%);
+            border-radius:28px;
+            padding-bottom:20px;
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.55),
+                0 0 40px rgba(255,215,0,0.25);
+            animation: floatIn 1.2s ease-out forwards;
+            transform: translateY(15px) scale(0.96);
+            opacity:0;
         }
+        @keyframes floatIn {
+            to { opacity:1; transform: translateY(0) scale(1); }
+        }
+
+        /* Modern light streaks */
+        .light-streak {
+            position:absolute;
+            width:160%; height:3px;
+            background:linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+            top:0; left:-30%;
+            opacity:0.6;
+            animation: streakMove 6s linear infinite;
+        }
+        @keyframes streakMove {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .header {
+            position:relative;
+            text-align:center;
+            padding:60px 20px 40px;
+            background:linear-gradient(135deg, #c41e3a55, #0e4d0e66);
+            border-bottom:1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Tree modern animation */
+        .tree {
+            font-size:120px;
+            animation: sway 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 35px rgba(255,215,0,0.6));
+        }
+        @keyframes sway {
+            0%,100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Star enhanced flicker */
+        .star {
+            font-size:48px;
+            position:absolute;
+            top:22px;
+            left:50%; transform:translateX(-50%);
+            animation: twinkle 2.3s ease-in-out infinite;
+            color:#ffd700;
+            text-shadow:0 0 25px #ffd700;
+        }
+        @keyframes twinkle {
+            0%,100% { opacity:1; transform:translateX(-50%) scale(1); }
+            50% { opacity:0.5; transform:translateX(-50%) scale(1.25); }
+        }
+
+        /* Dog section modernized */
+        .dogs {
+            display:flex;
+            justify-content:center;
+            gap:30px;
+            margin:30px 0 20px;
+        }
+        .dog {
+            animation: dogFloat 3s ease-in-out infinite;
+        }
+        .dog:nth-child(2) { animation-delay:0.5s; }
+        @keyframes dogFloat {
+            0%,100% { transform:translateY(0); }
+            50% { transform:translateY(-12px); }
+        }
+
+        /* Brown & white dog containers */
+        .dog-emoji-container {
+            font-size:70px;
+            padding:18px;
+            border-radius:50%;
+            box-shadow:0 5px 15px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.18);
+            border:3px solid rgba(255,255,255,0.25);
+        }
+        .brown { background:#6b3e1eaa; }
+        .white { background:#ffffff55; }
+
+        h1 {
+            font-family:'Mountains of Christmas', cursive;
+            color:#ffd700;
+            font-size:2.2em;
+            text-align:center;
+            text-shadow:0 0 15px rgba(0,0,0,0.5);
+            margin-bottom:12px;
+        }
+        .subtitle {
+            text-align:center;
+            color:#ffeec9;
+            font-size:1.1em;
+            margin-bottom:30px;
+        }
+
+        .content { padding:30px 25px; }
+
+        .details {
+            background:rgba(255,255,255,0.06);
+            padding:30px;
+            border-radius:18px;
+            box-shadow:inset 0 0 25px rgba(0,0,0,0.25);
+            border:1px solid rgba(255,255,255,0.15);
+            margin:35px 0;
+        }
+        .detail-item {
+            display:flex;
+            align-items:center;
+            font-size:1.15em;
+            margin:16px 0;
+        }
+        .detail-item span:first-child {
+            font-size:1.8em;
+            margin-right:18px;
+        }
+
+        .message {
+            color:#f3f3f3;
+            font-size:1.15em;
+            line-height:1.8;
+            margin-top:20px;
+        }
+        .message ul { list-style:none; padding-left:15px; }
         .message ul li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 25px;
+            padding-left:26px;
+            margin:9px 0;
+            position:relative;
         }
         .message ul li::before {
-            content: '✨';
-            position: absolute;
-            left: 0;
-            top: 2px;
-            font-size: 0.9em;
+            content:'✨';
+            position:absolute;
+            left:0;
+            top:0;
+        }
+
+        /* Modern CTA button */
+        .button {
+            display:inline-block;
+            padding:18px 55px;
+            background:linear-gradient(135deg, #d62839, #1a7d1a);
+            border-radius:50px;
+            color:white;
+            font-size:1.25em;
+            font-weight:700;
+            border:2px solid #ffd700;
+            box-shadow: 0 12px 35px rgba(214,40,57,0.45);
+            text-decoration:none;
+            transition:.3s;
+            position:relative;
+            overflow:hidden;
+        }
+        .button:hover {
+            transform:translateY(-4px) scale(1.03);
+            box-shadow:0 15px 45px rgba(214,40,57,0.6);
+        }
+        .button::after {
+            content:'';
+            position:absolute;
+            top:-40%; left:-40%;
+            width:200%; height:200%;
+            background:linear-gradient(45deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.0) 100%);
+            transform:rotate(25deg);
+            opacity:0;
+            transition:0.6s;
+        }
+        .button:hover::after {
+            left:120%; opacity:1;
+        }
+
+        .footer {
+            text-align:center;
+            padding:35px;
+            color:#cfcfcf;
+            font-size:0.95em;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 600px) {
+            .header { padding:40px 15px 30px; }
+            .tree { font-size:80px; }
+            .star { font-size:36px; top:15px; }
+            h1 { font-size:1.8em; }
+            .subtitle { font-size:1em; }
+            .content { padding:25px 20px; }
+            .details { padding:20px; }
+            .detail-item { font-size:1em; }
+            .detail-item span:first-child { font-size:1.5em; margin-right:12px; }
+            .message { font-size:1em; }
+            .button { 
+                padding:15px 40px; 
+                font-size:1.1em;
+                width: 100%;
+                text-align: center;
+            }
+            .dogs { gap:20px; }
+            .dog-emoji-container { font-size:50px; padding:12px; }
+        }
+
+        /* Snowfall */
+        .snowflake {
+            position:fixed;
+            color:white;
+            top:-10px;
+            font-size:14px;
+            opacity:0.8;
+            pointer-events:none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="snow" id="snow"></div>
-    
-    <div class="container">
-        
-        <div class="header">
-            <div class="lights">
-                <div class="light"></div>
-                <div class="light"></div>
-                <div class="light"></div>
-                <div class="light"></div>
-                <div class="light"></div>
-            </div>
-            <div class="star">⭐</div>
-            <div class="tree">🎄</div>
+
+<div id="snow"></div>
+
+<div class="container">
+    <div class="light-streak"></div>
+
+    <div class="header">
+        <div class="star">⭐</div>
+        <div class="tree">🎄</div>
+    </div>
+
+    <div class="content">
+        <h1>🎅 Kalėdų eglutės įžiebimas! 🎅</h1>
+        <p class="subtitle">Kviečiame į magišką šventinį renginį</p>
+
+        <div class="dogs">
+            <div class="dog"><div class="dog-emoji-container brown">🐶</div></div>
+            <div class="dog"><div class="dog-emoji-container white">🐕</div></div>
         </div>
-        
-        <div class="content">
-            <h1>🎅 Kalėdų eglutės įžiebimas! 🎅</h1>
-            <p class="subtitle">Kviečiame į magišką šventinį renginį</p>
-            
-            <div class="dogs">
-                <div class="dog">
-                    <div class="dog-emoji-container">🐕🎅</div>
-                </div>
-                <div class="dog">
-                    <div class="dog-emoji-container">🦮🎅</div>
-                </div>
-            </div>
-            
-            <p class="message">
-                Mieli draugai! ✨<br><br>
-                Su didžiausiu džiaugsmu kviečiame Jus į magišką Kalėdų eglutės įžiebimo ceremoniją. Kartu pasitinkime švenčių laikotarpį, pasidalinkime šiluma ir sukurkime nepamirštamus prisiminimus! Mūsų keturkojai draugai taip pat nekantriai laukia šventinės nuotaikos! 🐾
-            </p>
-            
-            <div class="details">
-                <div class="detail-item">
-                    <span>📅</span>
-                    <div>
-                        <strong>Data:</strong> 2024 m. gruodžio 15 d., šeštadienis
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <span>🕐</span>
-                    <div>
-                        <strong>Laikas:</strong> 17:00 val.
-                    </div>
-                </div>
-                <div class="detail-item">
-                    <span>📍</span>
-                    <div>
-                        <strong>Vieta:</strong> Miesto aikštė, Vilnius
-                    </div>
-                </div>
-            </div>
-            
-            <div class="message">
-                <span class="ornament">🎁</span> <strong>Programoje:</strong>
-                <ul>
-                    <li>Eglutės įžiebimas su daina</li>
-                    <li>Kalėdinis senelis su dovanėlėmis</li>
-                    <li>Karšta arbata ir saldumynai</li>
-                    <li>Kalėdinė muzika ir dainos</li>
-                    <li>Nuostabus fejerverkų šou</li>
-                    <li>Draugiški šuniukai sveikina svečius! 🐾</li>
-                </ul>
-            </div>
-            
-            <div class="cta">
-                <a href="#" class="button">Patvirtinti dalyvavimą ✓</a>
-            </div>
-            
-            <p class="message" style="text-align: center; margin-top: 30px; font-style: italic; opacity: 0.8;">
-                Atsineškite gerą nuotaiką ir šiltą šypseną! 😊
-            </p>
+
+        <p class="message">
+            Mieli Urte, Gile ir Luna! Su didžiausiu džiaugsmu kviečiu Jus į magišką Kalėdų eglutės įžiebimo ceremoniją.
+        </p>
+
+        <div class="details">
+            <div class="detail-item"><span>📅</span><div><strong>Data:</strong> 2025 m. gruodžio 29 d.</div></div>
+            <div class="detail-item"><span>🕐</span><div><strong>Laikas:</strong> 19:45 val.</div></div>
+            <div class="detail-item"><span>📍</span><div><strong>Vieta:</strong> Namai, Vilnius</div></div>
         </div>
-        
-        <div class="footer">
-            Laukiame Jūsų! 🎄❤️<br>
-            Su Kalėdine meile ir šiluma
+
+        <div class="message">
+            <strong>Programoje:</strong>
+            <ul>
+                <li>Eglutės įžiebimas</li>
+                <li>Modernus Kalėdų senelis 🎅✨</li>
+                <li>Karšta arbata arba stipriau ko 😉</li>
+                <li>Kalėdinės dainos</li>
+                <li>Fejerverkai</li>
+                <li>Draugiški šuniukai! 🐾</li>
+            </ul>
+        </div>
+
+        <div style="text-align:center; margin-top:40px;">
+            <a class="button" href="#">Įpūsk kalėdų dvasią ✓</a>
         </div>
     </div>
-    
-    <script>
-        // Sniego animacija
-        function createSnowflake() {
-            const snow = document.getElementById('snow');
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            // Naudojame įvairesnius simbolius sniegui
-            const shapes = ['❄', '❅', '❆', '•'];
-            snowflake.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
-            
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = Math.random() * 4 + 3 + 's'; // Lėtesnis kritimas
-            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-            snowflake.style.fontSize = (Math.random() * 12 + 8) + 'px';
-            snow.appendChild(snowflake);
-            
-            // Ilgesnis laikas prieš ištrinant, nes krenta lėčiau
-            setTimeout(() => {
-                snowflake.remove();
-            }, 8000);
-        }
-        
-        // Dažnesnis snasigų kūrimas tankesniam efektui
-        setInterval(createSnowflake, 150);
-        
-        // Sukuriame pradines snaiges, kad nereikėtų laukti
-        for(let i = 0; i < 30; i++) {
-            setTimeout(createSnowflake, i * 50);
-        }
-    </script>
+
+    <div class="footer">Laukiame Jūsų! 🎄❤️</div>
+</div>
+
+<script>
+// Snow explosion when clicking CTA
+function snowExplosion() {
+    for (let i = 0; i < 80; i++) {
+        setTimeout(createSnowflake, i * 20);
+    }
+}
+
+document.querySelector('.button').addEventListener('click', function(e) {
+    e.preventDefault();
+    snowExplosion();
+});
+
+// Regular snowfall
+function createSnowflake() {
+    const snow = document.getElementById('snow');
+    const flake = document.createElement('div');
+    flake.classList.add('snowflake');
+    const symbols = ['❄','❅','❆','✦'];
+    flake.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+
+    flake.style.left = Math.random()*100 + 'vw';
+    flake.style.animationDuration = 2 + Math.random()*3 + 's';
+    flake.style.fontSize = (10 + Math.random()*14) + 'px';
+    snow.appendChild(flake);
+
+    setTimeout(()=>flake.remove(), 6000);
+}
+setInterval(createSnowflake, 180);
+</script>
+
 </body>
 </html>
