@@ -8,9 +8,16 @@
 
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
+        
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(140deg, #0b1f0b 0%, #124d12 50%, #0b1f0b 100%);
+            background-attachment: fixed;
             overflow-x: hidden;
             min-height: 100vh;
             display:flex;
@@ -26,8 +33,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             overflow: hidden;
             z-index: 999;
@@ -71,6 +80,7 @@
             padding:60px 20px 40px;
             background:linear-gradient(135deg, #c41e3a55, #0e4d0e66);
             border-bottom:1px solid rgba(255,255,255,0.2);
+            border-radius:28px 28px 0 0;
         }
 
         .tree {
@@ -152,6 +162,7 @@
             align-items:center;
             font-size:1.15em;
             margin:16px 0;
+            color:#f3f3f3;
         }
         .detail-item span:first-child {
             font-size:1.8em;
@@ -191,6 +202,7 @@
             transition:.3s;
             position:relative;
             overflow:hidden;
+            cursor:pointer;
         }
         .button:hover {
             transform:translateY(-4px) scale(1.03);
@@ -217,8 +229,26 @@
             font-size:0.95em;
         }
 
+        /* Snaigės — absolute, animuojamos sniego sluoksnyje */
+        .snowflake {
+            position:absolute;
+            color:white;
+            top:-50px;
+            opacity:0.85;
+            pointer-events:none;
+            will-change: transform;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(calc(100vh + 100px)) rotate(360deg); }
+        }
+
         /* Mobile */
         @media (max-width: 600px) {
+            body {
+                padding:10px;
+            }
             .header { padding:40px 15px 30px; }
             .tree { font-size:80px; }
             .star { font-size:36px; top:15px; }
@@ -233,25 +263,11 @@
             .dogs { gap:20px; }
             .dog-emoji-container { font-size:50px; padding:12px; }
         }
-
-        /* Snaigės — absolute, animuojamos sniego sluoksnyje */
-        .snowflake {
-            position:absolute;
-            color:white;
-            top:-10px;
-            opacity:0.85;
-            pointer-events:none;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
     </style>
 </head>
 <body>
 
 <!-- Full screen snow -->
-
 <div id="snow-layer"></div>
 
 <div class="container">
