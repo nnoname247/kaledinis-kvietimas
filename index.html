@@ -17,9 +17,23 @@
             align-items:flex-start;
             justify-content:center;
             padding:20px 15px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Container – modernus glassmorphism + 3D shadow */
+        /* SNOW LAYER — full screen, fixed, does NOT break scroll */
+        #snow-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        /* Container */
         .container {
             width:100%;
             max-width:600px;
@@ -30,15 +44,14 @@
             box-shadow:
                 0 20px 40px rgba(0,0,0,0.55),
                 0 0 40px rgba(255,215,0,0.25);
-            animation: floatIn 1.2s ease-out forwards;
-            transform: translateY(15px) scale(0.96);
             opacity:0;
+            animation: floatIn 1.2s ease-out forwards;
         }
         @keyframes floatIn {
-            to { opacity:1; transform: translateY(0) scale(1); }
+            0% { opacity:0; transform: translateY(15px) scale(0.96); }
+            100% { opacity:1; transform: translateY(0) scale(1); }
         }
 
-        /* Modern light streaks */
         .light-streak {
             position:absolute;
             width:160%; height:3px;
@@ -60,7 +73,6 @@
             border-bottom:1px solid rgba(255,255,255,0.2);
         }
 
-        /* Tree modern animation */
         .tree {
             font-size:120px;
             animation: sway 4s ease-in-out infinite;
@@ -71,7 +83,6 @@
             50% { transform: rotate(3deg); }
         }
 
-        /* Star enhanced flicker */
         .star {
             font-size:48px;
             position:absolute;
@@ -86,7 +97,6 @@
             50% { opacity:0.5; transform:translateX(-50%) scale(1.25); }
         }
 
-        /* Dog section modernized */
         .dogs {
             display:flex;
             justify-content:center;
@@ -102,7 +112,6 @@
             50% { transform:translateY(-12px); }
         }
 
-        /* Brown & white dog containers */
         .dog-emoji-container {
             font-size:70px;
             padding:18px;
@@ -168,7 +177,6 @@
             top:0;
         }
 
-        /* Modern CTA button */
         .button {
             display:inline-block;
             padding:18px 55px;
@@ -209,7 +217,7 @@
             font-size:0.95em;
         }
 
-        /* Mobile optimization */
+        /* Mobile */
         @media (max-width: 600px) {
             .header { padding:40px 15px 30px; }
             .tree { font-size:80px; }
@@ -221,34 +229,30 @@
             .detail-item { font-size:1em; }
             .detail-item span:first-child { font-size:1.5em; margin-right:12px; }
             .message { font-size:1em; }
-            .button { 
-                padding:15px 40px; 
-                font-size:1.1em;
-                width: 100%;
-                text-align: center;
-            }
+            .button { padding:15px 40px; font-size:1.1em; width:100%; }
             .dogs { gap:20px; }
             .dog-emoji-container { font-size:50px; padding:12px; }
         }
 
-        /* Snowfall */
+        /* Snaigės — absolute, animuojamos sniego sluoksnyje */
         .snowflake {
-            position:fixed;
+            position:absolute;
             color:white;
             top:-10px;
-            font-size:14px;
-            opacity:0.8;
+            opacity:0.85;
             pointer-events:none;
             animation: fall linear infinite;
         }
         @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-<div id="snow"></div>
+<!-- Full screen snow -->
+
+<div id="snow-layer"></div>
 
 <div class="container">
     <div class="light-streak"></div>
@@ -298,34 +302,37 @@
 </div>
 
 <script>
-// Snow explosion when clicking CTA
+// Snow burst on button click
 function snowExplosion() {
     for (let i = 0; i < 80; i++) {
         setTimeout(createSnowflake, i * 20);
     }
 }
-
-document.querySelector('.button').addEventListener('click', function(e) {
+document.querySelector('.button').addEventListener('click', e => {
     e.preventDefault();
     snowExplosion();
 });
 
-// Regular snowfall
+// Regular snowfall over the full screen
 function createSnowflake() {
-    const snow = document.getElementById('snow');
+    const snow = document.getElementById('snow-layer');
     const flake = document.createElement('div');
     flake.classList.add('snowflake');
-    const symbols = ['❄','❅','❆','✦'];
-    flake.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
 
-    flake.style.left = Math.random()*100 + 'vw';
-    flake.style.animationDuration = 2 + Math.random()*3 + 's';
-    flake.style.fontSize = (10 + Math.random()*14) + 'px';
+    const symbols = ['❄','❅','❆','✦'];
+    flake.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+
+    flake.style.left = Math.random() * 100 + 'vw';
+    flake.style.fontSize = (12 + Math.random() * 18) + 'px';
+    flake.style.animationDuration = (4 + Math.random() * 4) + 's';
+
     snow.appendChild(flake);
 
-    setTimeout(()=>flake.remove(), 6000);
+    setTimeout(() => flake.remove(), 9000);
 }
-setInterval(createSnowflake, 180);
+
+// Slightly reduced frequency for performance
+setInterval(createSnowflake, 220);
 </script>
 
 </body>
